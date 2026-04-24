@@ -1,11 +1,11 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { z } from "zod";
 import { TimewebClient } from "../api/client.js";
 import { handleToolError } from "../utils/errors.js";
 import {
   domainSchema,
   subdomainSchema,
   prioritySchema,
+  fqdnValueSchema,
 } from "../schemas/common.js";
 
 export function registerAddMx(server: McpServer, client: TimewebClient): void {
@@ -16,7 +16,7 @@ export function registerAddMx(server: McpServer, client: TimewebClient): void {
       domain: domainSchema,
       subdomain: subdomainSchema.optional(),
       priority: prioritySchema,
-      value: z.string().min(3).describe("Mail server FQDN"),
+      value: fqdnValueSchema.describe("Mail server FQDN"),
     },
     async ({ domain, subdomain, priority, value }) => {
       try {

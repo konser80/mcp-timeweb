@@ -7,6 +7,7 @@ import {
   subdomainSchema,
   prioritySchema,
   portSchema,
+  fqdnValueSchema,
 } from "../schemas/common.js";
 
 export function registerAddSrv(server: McpServer, client: TimewebClient): void {
@@ -20,7 +21,7 @@ export function registerAddSrv(server: McpServer, client: TimewebClient): void {
       protocol: z.string().min(1).describe('Protocol, e.g. "_TCP"'),
       priority: prioritySchema,
       port: portSchema,
-      host: z.string().min(3).describe("Target FQDN"),
+      host: fqdnValueSchema.describe("Target FQDN"),
     },
     async ({ domain, subdomain, service, protocol, priority, port, host }) => {
       try {

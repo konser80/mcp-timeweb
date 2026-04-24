@@ -1,8 +1,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-import { z } from "zod";
 import { TimewebClient } from "../api/client.js";
 import { handleToolError } from "../utils/errors.js";
-import { domainSchema, subdomainSchema } from "../schemas/common.js";
+import { domainSchema, subdomainSchema, fqdnValueSchema } from "../schemas/common.js";
 
 export function registerAddCname(server: McpServer, client: TimewebClient): void {
   server.tool(
@@ -11,7 +10,7 @@ export function registerAddCname(server: McpServer, client: TimewebClient): void
     {
       domain: domainSchema,
       subdomain: subdomainSchema.optional(),
-      value: z.string().min(3).describe("Target FQDN"),
+      value: fqdnValueSchema.describe("Target FQDN"),
     },
     async ({ domain, subdomain, value }) => {
       try {
