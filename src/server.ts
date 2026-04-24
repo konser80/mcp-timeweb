@@ -1,5 +1,8 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { TimewebClient } from "./api/client.js";
+import { registerListDomains } from "./tools/list-domains.js";
+import { registerGetDomain } from "./tools/get-domain.js";
+import { registerGetDnsRecords } from "./tools/get-dns-records.js";
 
 export function createServer(client: TimewebClient): McpServer {
   const server = new McpServer({
@@ -7,7 +10,9 @@ export function createServer(client: TimewebClient): McpServer {
     version: "0.1.0",
   });
 
-  // Tool registrations added in later tasks.
-  void client;
+  registerListDomains(server, client);
+  registerGetDomain(server, client);
+  registerGetDnsRecords(server, client);
+
   return server;
 }
