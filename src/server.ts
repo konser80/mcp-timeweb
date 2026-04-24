@@ -9,6 +9,7 @@ import { registerAddCname } from "./tools/add-cname.js";
 import { registerAddMx } from "./tools/add-mx.js";
 import { registerAddTxt } from "./tools/add-txt.js";
 import { registerAddSrv } from "./tools/add-srv.js";
+import { registerDeleteDnsRecord } from "./tools/delete-dns-record.js";
 
 export function createServer(client: TimewebClient): McpServer {
   const server = new McpServer({
@@ -25,6 +26,7 @@ export function createServer(client: TimewebClient): McpServer {
   registerAddMx(server, client);
   registerAddTxt(server, client);
   registerAddSrv(server, client);
+  registerDeleteDnsRecord(server, client);
 
   return server;
 }
