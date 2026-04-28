@@ -10,11 +10,13 @@ import { registerAddMx } from "./tools/add-mx.js";
 import { registerAddTxt } from "./tools/add-txt.js";
 import { registerAddSrv } from "./tools/add-srv.js";
 import { registerDeleteDnsRecord } from "./tools/delete-dns-record.js";
+import { registerAddSubdomain } from "./tools/add-subdomain.js";
+import { registerDeleteSubdomain } from "./tools/delete-subdomain.js";
 
 export function createServer(client: TimewebClient): McpServer {
   const server = new McpServer({
     name: "timeweb-mcp-server",
-    version: "0.1.0",
+    version: "0.2.0",
   });
 
   registerListDomains(server, client);
@@ -27,6 +29,8 @@ export function createServer(client: TimewebClient): McpServer {
   registerAddTxt(server, client);
   registerAddSrv(server, client);
   registerDeleteDnsRecord(server, client);
+  registerAddSubdomain(server, client);
+  registerDeleteSubdomain(server, client);
 
   return server;
 }

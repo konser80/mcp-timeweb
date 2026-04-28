@@ -162,12 +162,23 @@ export class TimewebClient {
     );
   }
 
+  async addSubdomain(zone: string, subdomain: string): Promise<void> {
+    await this.request<void>(
+      "post",
+      `/v1.1${this.accountPath}/domains/${encodeURIComponent(zone)}/subdomains/${encodeURIComponent(subdomain)}`
+    );
+  }
+
+  async deleteSubdomain(zone: string, subdomain: string): Promise<void> {
+    await this.request<void>(
+      "delete",
+      `/v1.1${this.accountPath}/domains/${encodeURIComponent(zone)}/subdomains/${encodeURIComponent(subdomain)}`
+    );
+  }
+
   async ensureSubdomain(zone: string, subdomain: string): Promise<void> {
     try {
-      await this.request<unknown>(
-        "post",
-        `/v1.1${this.accountPath}/domains/${encodeURIComponent(zone)}/subdomains/${encodeURIComponent(subdomain)}`
-      );
+      await this.addSubdomain(zone, subdomain);
     } catch (err) {
       if (err instanceof TimewebApiError && err.status === 409) return;
       throw err;
