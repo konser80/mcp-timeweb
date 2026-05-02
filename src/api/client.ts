@@ -187,8 +187,8 @@ export class TimewebClient {
 
   async addDnsRecord(zone: string, input: AddRecordInput): Promise<unknown> {
     const { type, subdomain, data } = input;
-    if (type === "TXT" && subdomain) {
-      const body = { type, data: { ...data, subdomain } };
+    if (type === "TXT") {
+      const body = { type, data: { ...data, subdomain: subdomain ?? null } };
       return this.request<unknown>(
         "post",
         `/v1.2${this.accountPath}/domains/${encodeURIComponent(zone)}/user-records/`,
